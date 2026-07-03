@@ -34,7 +34,6 @@ jobs:
               --target=testing \
               --output=type=docker \
               --build-arg NAME=${{ github.event.repository.name }} \
-              --build-arg DB_PASSWORD=${{ secrets.POSTGRES_PASSWORD_URL_ENCODE }} \
               --no-cache \
               --tag ${{ github.repository }}:testing .
             docker rmi ${{ github.repository }}:testing
@@ -80,7 +79,6 @@ jobs:
             docker run -d \
               --network ${{ secrets.DOCKER_NETWORK }} \
               --name ${{ github.event.repository.name }} \
-              --env DB_PASSWORD=${{ secrets.POSTGRES_PASSWORD_URL_ENCODE }} \
               --volume ${{ secrets.HOME }}/logs/${{ github.event.repository.name }}:/var/log/${{ github.event.repository.name }} \
               --restart unless-stopped \
               --stop-timeout -1 \
