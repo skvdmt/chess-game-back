@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
 	"net/http"
 	"sync"
@@ -57,6 +58,7 @@ func (a *App) Start(ctx context.Context) error {
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
 		CheckOrigin: func(r *http.Request) bool {
+			fmt.Printf("ORIGIN: %s\n", r.Header.Get("origin"))
 			// var o = r.Header.Get("origin")
 			// if o != model.Config.Server.OriginalClientUrl {
 			// 	return false
