@@ -1,0 +1,10 @@
+server:
+  port: 8000
+  connect_url: "/connect"
+  original_client_url: "http://localhost:3000"
+game:
+  step_time_left: 30  # seconds
+  reserve_time_left: 300  # seconds
+  offer_draw_times_left: 3
+  time_left_for_confirm_draw: 10  # seconds
+  swap_teams_after_making_new_game: true
