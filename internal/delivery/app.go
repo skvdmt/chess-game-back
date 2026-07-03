@@ -57,10 +57,10 @@ func (a *App) Start(ctx context.Context) error {
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
 		CheckOrigin: func(r *http.Request) bool {
-			var o = r.Header.Get("origin")
-			if o != model.Config.Server.OriginalClientUrl {
-				return false
-			}
+			// var o = r.Header.Get("origin")
+			// if o != model.Config.Server.OriginalClientUrl {
+			// 	return false
+			// }
 			return true
 		},
 	}
