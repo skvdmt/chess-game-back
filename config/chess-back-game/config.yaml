@@ -1,7 +1,7 @@
 server:
   port: 8000
   connect_url: "/connect"
-  original_client_url: "https://chess.skvdmt.ru"
+  original_client_url: "http://localhost:8000"
 game:
   step_time_left: 30  # seconds
   reserve_time_left: 300  # seconds
