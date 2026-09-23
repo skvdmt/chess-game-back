@@ -19,6 +19,6 @@ git clone https://github.com/skvdmt/chess-game-back
 ```
 
 ## Links:
-- [Docker image](https://hub.docker.com/r/skvdmt/go-template-app) — Docker image on docker hub.
+- [Docker image](https://hub.docker.com/r/skvdmt/chess-game-back) — Docker image on docker hub.
 - [Client source code in Vue](https://github.com/skvdmt/chess-front).
 - [Author](https://skvdmt.ru) — Dmitry Skidanov.
