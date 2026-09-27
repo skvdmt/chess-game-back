@@ -9,7 +9,7 @@ import (
 
 const (
 	// Название приложения.
-	APP_NAME = "chess-back-game"
+	APP_NAME = "chess-game-back"
 
 	// Путь в директории конфигурации. (Добавляется директория с именем приложения).
 	configDirectoryProd = "/etc"
