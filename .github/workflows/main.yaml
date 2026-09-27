@@ -23,6 +23,7 @@ jobs:
       - name: Testing.
         run: |
           ssh -i ~/.ssh/github_ed25519 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<EOF
+            set -e
             cd ~/src/${{ github.event.repository.name }}
             docker buildx rm ${{ secrets.DOCKER_NETWORK }}-builder || true
             docker buildx create --use \
@@ -42,6 +43,7 @@ jobs:
       - name: Building.
         run: |
           ssh -i ~/.ssh/github_ed25519 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<EOF
+            set -e
             cd ~/src/${{ github.event.repository.name }}
             docker build \
              --build-arg NAME=${{ github.event.repository.name }} \
@@ -73,6 +75,7 @@ jobs:
       - name: Creating and running application container.
         run: |
           ssh -i ~/.ssh/github_ed25519 ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} <<EOF
+            set -e
             docker pull ${{ github.repository }}
             docker stop ${{ github.event.repository.name }} || true
             docker rm ${{ github.event.repository.name }} || true
