@@ -1,6 +1,8 @@
 package chess
 
 import (
+	"fmt"
+
 	"github.com/google/uuid"
 	"github.com/skvdmt/chess-game-back/internal/entities"
 	"github.com/skvdmt/chess-game-back/internal/entities/dto"
@@ -128,7 +130,7 @@ func (m *Move) Do() {
 			})
 		s.SetPos(m.secondaryFinish, m.real)
 	default:
-		panic("unknown move type")
+		panic(fmt.Sprintf("unknown move type %d", m.moveType))
 	}
 }
 
@@ -154,7 +156,7 @@ func (m *Move) Undo() {
 		s := m.team.ChessPieces().FoundById(m.secondaryId)
 		s.SetPos(m.secondaryStart, m.real)
 	default:
-		panic("unknown move type")
+		panic(fmt.Sprintf("unknown move type %d", m.moveType))
 	}
 	c.SetPos(m.primaryStart, m.real)
 }
