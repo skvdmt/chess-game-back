@@ -102,6 +102,8 @@ func (m *Move) Do() {
 	c := m.team.ChessPieces().FoundById(m.primaryId)
 	c.SetPos(m.primaryFinish, m.real)
 	switch m.moveType {
+	case General:
+		break
 	case Transform:
 		m.prev = c
 		q := pieces.NewQueen(m.primaryId, m.primaryFinish)
@@ -138,6 +140,8 @@ func (m *Move) Do() {
 func (m *Move) Undo() {
 	c := m.team.ChessPieces().FoundById(m.primaryId)
 	switch m.moveType {
+	case General:
+		break
 	case Transform:
 		m.team.ChessPieces().Replace(c, m.prev)
 		c = m.team.ChessPieces().FoundById(m.primaryId)
