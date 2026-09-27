@@ -24,7 +24,7 @@ type App struct {
 	// Часы запущены.
 	clockStarted bool
 	// Состояние.
-	state error // ждем обоих | ждем белого | ждем черного
+	state error // Ждем обоих | ждем белого | ждем черного
 	// Сервисный слой.
 	usecase Usecase
 	upg     *websocket.Upgrader

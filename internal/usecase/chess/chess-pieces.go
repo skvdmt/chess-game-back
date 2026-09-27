@@ -97,8 +97,8 @@ func (cs *ChessPieces) ExistsByPosition(p *entities.Position) bool {
 	return cs.FoundByPosition(p) != nil
 }
 
-// ExportOnBoadr Экспорт фигур на доске.
-func (cs *ChessPieces) ExportOnBoadr() []*dto.ChessPiece {
+// ExportOnBoard Экспорт фигур на доске.
+func (cs *ChessPieces) ExportOnBoard() []*dto.ChessPiece {
 	return cs.export(true)
 }
 

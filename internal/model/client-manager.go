@@ -103,8 +103,8 @@ func (c *ClientManager) ClientTeamExists(teamName string) bool {
 }
 
 // Handle Регистрация обработчика.
-func (c *ClientManager) Handle(method string, hanlder func(Client, *dto.Request) any) {
-	c.handlers[method] = hanlder
+func (c *ClientManager) Handle(method string, handler func(Client, *dto.Request) any) {
+	c.handlers[method] = handler
 }
 
 // SendStatus Отправка статуса.

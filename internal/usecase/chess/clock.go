@@ -30,7 +30,7 @@ func NewClock(team string) *Clock {
 }
 
 // Start Старт.
-func (c *Clock) Start(team string) error {
+func (c *Clock) Start() error {
 	model.Logs.Info.Info("board clock starting")
 	if c.ticker != nil {
 		// Часы уже тикают.
@@ -64,8 +64,8 @@ func (c *Clock) Stop() {
 	model.Logs.Info.Info("board clock stopped")
 }
 
-// Toogle Переключение.
-func (c *Clock) Toogle() {
+// Toggle Переключение.
+func (c *Clock) Toggle() {
 	c.step = time.Duration(model.Config.Game.StepTimeLeft) * time.Second
 	if c.team == model.White {
 		c.team = model.Black

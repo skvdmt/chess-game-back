@@ -172,7 +172,7 @@ func (b *Board) moveValid(c ChessPiece, to *entities.Position) bool {
 // toggleTurn Переключлючение хода.
 func (b *Board) toggleTurn() {
 	// Переключение часов.
-	b.Clock().Toogle()
+	b.Clock().Toggle()
 	if b.turn == model.White {
 		b.turn = model.Black
 	} else {

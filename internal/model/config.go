@@ -15,8 +15,8 @@ const (
 	configDirectoryProd = "/etc"
 	configDirectoryDev  = "./config"
 	// Имя файла конфигурации.
-	configFileNameProd = "config.yaml"
-	configFileNameDev  = "config-dev.yaml"
+	configFileNameProd = "prod.yaml"
+	configFileNameDev  = "dev.yaml"
 )
 
 // Config Глобальная конфигурация.
@@ -43,17 +43,17 @@ type MainConfig struct {
 	Game   *GameConfig   `yaml:"game"`
 }
 
-// LoadConfig Загрузка конфигурации в глобальную переменную Config.
-func LoadConfig() error {
+// CreateConfig Загрузка конфигурации в глобальную переменную Config.
+func CreateConfig() error {
 	Logs.Info.Info("configuration loading")
-	configDirectory := configDirectoryProd
-	configFileName := configFileNameProd
-	mode, ok := os.LookupEnv(MODE)
-	if ok && mode == Dev {
-		configDirectory = configDirectoryDev
-		configFileName = configFileNameDev
+	dn := filepath.Join(configDirectoryProd, APP_NAME)
+	fn := configFileNameProd
+	m, ok := os.LookupEnv(MODE)
+	if ok && m == Dev {
+		dn = configDirectoryDev
+		fn = configFileNameDev
 	}
-	d, err := os.ReadFile(filepath.Join(configDirectory, APP_NAME, configFileName))
+	d, err := os.ReadFile(filepath.Join(dn, fn))
 	if err != nil {
 		return err
 	}

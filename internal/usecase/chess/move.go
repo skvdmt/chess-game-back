@@ -12,11 +12,11 @@ const (
 	// Ход.
 	General MoveType = iota + 1
 	// Трансформация.
-	Transfom
+	Transform
 	// Поедание.
 	Eating
 	// Поедание с трансформацией.
-	TransfomEating
+	TransformEating
 	// Рокировка.
 	Castling
 	// Взятие на проходе.
@@ -68,8 +68,8 @@ func NewMove(t *Team, c ChessPiece, p *entities.Position, real bool, h *History)
 	m.moveType = m.typ(p, h)
 
 	switch m.moveType {
-	case General, Transfom:
-	case Eating, TransfomEating:
+	case General, Transform:
+	case Eating, TransformEating:
 		m.secondaryId = m.team.Enemy().ChessPieces().FoundByPosition(p).Id()
 	case PassantCapture:
 		switch t.Name() {
@@ -100,14 +100,14 @@ func (m *Move) Do() {
 	c := m.team.ChessPieces().FoundById(m.primaryId)
 	c.SetPos(m.primaryFinish, m.real)
 	switch m.moveType {
-	case Transfom:
+	case Transform:
 		m.prev = c
 		q := pieces.NewQueen(m.primaryId, m.primaryFinish)
 		m.team.ChessPieces().Replace(c, q)
 	case Eating:
 		e := m.team.Enemy().ChessPieces().FoundById(m.secondaryId)
 		e.Eat()
-	case TransfomEating:
+	case TransformEating:
 		e := m.team.Enemy().ChessPieces().FoundById(m.secondaryId)
 		e.Eat()
 		m.prev = c
@@ -127,6 +127,8 @@ func (m *Move) Do() {
 				Y: m.secondaryFinish.Y(),
 			})
 		s.SetPos(m.secondaryFinish, m.real)
+	default:
+		panic("unknown move type")
 	}
 }
 
@@ -134,7 +136,7 @@ func (m *Move) Do() {
 func (m *Move) Undo() {
 	c := m.team.ChessPieces().FoundById(m.primaryId)
 	switch m.moveType {
-	case Transfom:
+	case Transform:
 		m.team.ChessPieces().Replace(c, m.prev)
 		c = m.team.ChessPieces().FoundById(m.primaryId)
 	case Eating:
@@ -143,7 +145,7 @@ func (m *Move) Undo() {
 	case PassantCapture:
 		e := m.team.Enemy().ChessPieces().FoundById(m.secondaryId)
 		e.UndoEat()
-	case TransfomEating:
+	case TransformEating:
 		e := m.team.Enemy().ChessPieces().FoundById(m.secondaryId)
 		e.UndoEat()
 		m.team.ChessPieces().Replace(c, m.prev)
@@ -151,6 +153,8 @@ func (m *Move) Undo() {
 	case Castling:
 		s := m.team.ChessPieces().FoundById(m.secondaryId)
 		s.SetPos(m.secondaryStart, m.real)
+	default:
+		panic("unknown move type")
 	}
 	c.SetPos(m.primaryStart, m.real)
 }
@@ -169,7 +173,7 @@ func (m *Move) typ(p *entities.Position, h *History) MoveType {
 		if c.Name() == model.PAWN &&
 			(p.Y() == 1 || p.Y() == 8) {
 			// Поедание с трансформацией.
-			return TransfomEating
+			return TransformEating
 		}
 		// Поедание.
 		return Eating
@@ -177,7 +181,7 @@ func (m *Move) typ(p *entities.Position, h *History) MoveType {
 	if c.Name() == model.PAWN &&
 		(p.Y() == 1 || p.Y() == 8) {
 		// Трансформация.
-		return Transfom
+		return Transform
 	}
 	if len(*h) > 0 {
 		pm := (*h)[len(*h)-1]

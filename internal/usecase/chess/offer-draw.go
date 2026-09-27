@@ -43,7 +43,7 @@ func (o *OfferDraw) Stop() {
 		o.blackDone = nil
 	}
 	o.wg.Wait()
-	model.Logs.Info.Info("offer a draw all hanlers stopped")
+	model.Logs.Info.Info("offer a draw all handlers stopped")
 }
 
 // SendOffer Отправка предложения.
@@ -92,7 +92,7 @@ func (o *OfferDraw) valid(t *Team) error {
 	}
 	if (t.Name() == model.White && o.whiteTicker != nil) ||
 		(t.Name() == model.Black && o.blackTicker != nil) {
-		return model.ErrOfferADrawAlreadySended
+		return model.ErrOfferADrawAlreadySent
 	}
 	return nil
 }

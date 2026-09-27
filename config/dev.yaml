@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 8000
   connect_url: "/connect"
   original_client_url: "http://localhost:3000"
 game:

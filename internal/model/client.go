@@ -65,10 +65,10 @@ func (c *Client) Close() {
 }
 
 var (
-	ErrBadRequest = errors.New("Bad Request")
+	ErrBadRequest = errors.New("bad request")
 )
 
-// read Прием данных клиентом от сервера.
+// Read Прием данных клиентом от сервера.
 func (c *Client) read() {
 	defer func() {
 		c.manager.Unregister(c)
@@ -93,7 +93,7 @@ func (c *Client) read() {
 	}
 }
 
-// write Отправка данных клиентом серверу.
+// Write Отправка данных клиентом серверу.
 func (c *Client) write() {
 	ping := time.NewTicker(pingPeriod)
 	defer func() {
@@ -116,7 +116,7 @@ func (c *Client) write() {
 	}
 }
 
-// requestHanler Обработка запроса.
+// requestHandler Обработка запроса.
 func (c *Client) requestHandler(req *dto.Request) {
 	for m, h := range c.manager.handlers {
 		if req.Method == m {

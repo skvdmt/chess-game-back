@@ -7,7 +7,7 @@ import (
 	"github.com/skvdmt/chess-game-back/internal/model"
 )
 
-// main Точка входа в приложение.
+// Точка входа в приложение.
 func main() {
 	// Создание логгера.
 	if err := model.CreateLogger(); err != nil {

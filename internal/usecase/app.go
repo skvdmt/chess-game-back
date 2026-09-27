@@ -20,7 +20,7 @@ type App struct {
 }
 
 // NewApp Конструктор.
-func NewApp(ctx context.Context) (*App, error) {
+func NewApp(_ context.Context) (*App, error) {
 	model.Logs.Info.Info("usecase layer creating")
 	a := &App{
 		board: chess.NewBoard(),
@@ -29,7 +29,7 @@ func NewApp(ctx context.Context) (*App, error) {
 }
 
 // Start Запуск.
-func (a *App) Start(ctx context.Context) error {
+func (a *App) Start(_ context.Context) error {
 	model.Logs.Info.Info("usecase layer starting")
 	// Запуск доски
 	a.board.Start()
@@ -37,7 +37,7 @@ func (a *App) Start(ctx context.Context) error {
 }
 
 // Stop Остановка.
-func (a *App) Stop(ctx context.Context) error {
+func (a *App) Stop(_ context.Context) error {
 	a.board.Stop()
 	model.Logs.Info.Info("usecase layer stopped")
 	return nil
@@ -46,7 +46,7 @@ func (a *App) Stop(ctx context.Context) error {
 // StartClock Запуск часов.
 func (a *App) StartClock() {
 	// Запуск часов.
-	if err := a.board.Clock().Start(a.board.Turn().Name()); err != nil {
+	if err := a.board.Clock().Start(); err != nil {
 		if errors.Is(err, model.ErrTimeOver) {
 			a.board.Pause(a.board.Turn().Enemy().Win())
 		}
@@ -134,7 +134,7 @@ func (a *App) Surrender(teamName string) error {
 	case model.Black:
 		err = model.ErrWhiteWin
 	default:
-		panic(fmt.Sprintf("unknown teamname %s", teamName))
+		panic(fmt.Sprintf("unknown team name %s", teamName))
 	}
 	a.board.Pause(err)
 	a.board.Stop()

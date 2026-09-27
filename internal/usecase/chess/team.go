@@ -44,7 +44,7 @@ func (t *Team) Enemy() *Team {
 func (t *Team) Export() *dto.Team {
 	return &dto.Team{
 		Name:               t.Name(),
-		OnBoardChessPieces: t.ChessPieces().ExportOnBoadr(),
+		OnBoardChessPieces: t.ChessPieces().ExportOnBoard(),
 		EatenChessPieces:   t.ChessPieces().ExportEaten(),
 	}
 }
@@ -266,7 +266,7 @@ func (t *Team) beatenKnight(c ChessPiece) []*entities.Position {
 	return bf
 }
 
-// offset Смещенная по направлению и дистанции позиция.
+// Offset Смещенная по направлению и дистанции позиция.
 func (t *Team) offset(c ChessPiece, d entities.Direction, remote uint8) *entities.Position {
 	switch d {
 	case entities.Top:
@@ -315,7 +315,7 @@ func (t *Team) beaten(p *entities.Position) bool {
 	return false
 }
 
-// check Королю поставлен шах.
+// Check Королю поставлен шах.
 func (t *Team) check() bool {
 	k := t.ChessPieces().King()
 	if t.beaten(k.Pos()) {

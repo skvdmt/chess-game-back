@@ -49,7 +49,7 @@ type App struct {
 func NewApp() (*App, error) {
 	model.Logs.Info.Info(fmt.Sprintf("%s creating", model.APP_NAME))
 	// Загрузка конфигурации.
-	if err := model.LoadConfig(); err != nil {
+	if err := model.CreateConfig(); err != nil {
 		return nil, err
 	}
 	// Создаем глобальный канал ошибок.
@@ -70,7 +70,6 @@ func NewApp() (*App, error) {
 	}
 
 	// Создание контекста.
-	// a.ctx, a.cancel = context.WithTimeout(context.Background(), time.Nanosecond*1)
 	a.ctx, a.cancel = context.WithCancel(context.Background())
 	// Создание транспортного слоя из которого по
 	// цепочки создаются остальные слои приложения.
@@ -146,7 +145,7 @@ func (a *App) interruptHandler() error {
 	return nil
 }
 
-// stop Остановка приложения.
+// Stop Остановка приложения.
 func (a *App) stop() error {
 	a.stopping = true
 
@@ -167,7 +166,7 @@ func (a *App) stop() error {
 	}
 	model.Logs.Info.Info("http server shutdown")
 
-	// Остановка транспортного слоя из которо по цепочке
+	// Остановка транспортного слоя из которого по цепочке
 	// останавливаются все остальные слои.
 	if err := a.delivery.Stop(a.ctx); err != nil {
 		return err
