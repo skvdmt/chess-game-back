@@ -84,6 +84,7 @@ jobs:
               --name ${{ github.event.repository.name }} \
               --memory="48m" \
               --cpus="0.25" \
+              --ip ${{ vars .CONTAINER_IP }} \
               --volume ${{ secrets.HOME }}/logs/${{ github.event.repository.name }}:/var/log/${{ github.event.repository.name }} \
               --restart unless-stopped \
               --stop-timeout -1 \
